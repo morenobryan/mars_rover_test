@@ -10,14 +10,8 @@ class Rover
     end
 
     def walk(instruction)
-        case instruction
-        when "L"
-            rotate_left
-        when "R"
-            rotate_right
-        when "M"
-            go_forward
-        end
+        command = Commands.new.parse_string_command(instruction)
+        command.execute(self)
     end
 
     def rotate_left

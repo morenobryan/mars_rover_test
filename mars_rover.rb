@@ -2,10 +2,14 @@ require './lib/rover.rb'
 require './lib/plateau.rb'
 require './lib/orientation.rb'
 require './lib/coordinates.rb'
-require './lib/Orientation/north.rb'
-require './lib/Orientation/east.rb'
-require './lib/Orientation/south.rb'
-require './lib/Orientation/west.rb'
+require './lib/orientation/north.rb'
+require './lib/orientation/east.rb'
+require './lib/orientation/south.rb'
+require './lib/orientation/west.rb'
+require './lib/commands.rb'
+require './lib/commands/rotate_left.rb'
+require './lib/commands/rotate_right.rb'
+require './lib/commands/go_forward.rb'
 
 file = File.open('Inputs.txt')
 
@@ -16,6 +20,7 @@ plateau = Plateau.new(x_limit, y_limit)
 file.each_slice(2) { |coordinates, instructions|
     x_initial, y_initial, initial_orientation = coordinates.split(" ")
     mars_rover = Rover.new(x_initial.to_i, y_initial.to_i, initial_orientation, plateau)
+    instructions = instructions.gsub(/\n/,"")
     instructions.split("").each do |instruction|
         mars_rover.walk(instruction)
     end
