@@ -1,12 +1,12 @@
 class Rover
-    attr_accessor :x_position
-    attr_accessor :y_position
+    attr_accessor :coordinates
     attr_accessor :orientation
+    attr_accessor :plateau
 
-    def initialize(x_position, y_position, orientation)
-        @x_position = x_position
-        @y_position = y_position
-        @orientation = orientation
+    def initialize(x_position, y_position, orientation, plateau)
+        @coordinates = Coordinates.new(x_position, y_position)
+        @orientation = Orientation.new(orientation)
+        @plateau = plateau
     end
 
     def walk(instruction)
@@ -21,43 +21,16 @@ class Rover
     end
 
     def rotate_left
-        case @orientation
-        when "N"
-            @orientation = "W"
-        when "W"
-            @orientation = "S"
-        when "S"
-            @orientation = "E"
-        when "E"
-            @orientation = "N"
-        end
+        @orientation.rotate_left
     end
 
     def rotate_right
-        case @orientation
-        when "N"
-            @orientation = "E"
-        when "E"
-            @orientation = "S"
-        when "S"
-            @orientation = "W"
-        when "W"
-            @orientation = "N"
-        end
+        @orientation.rotate_right
     end
 
     def go_forward
-        if Plateau::can_walk(self)
-            case @orientation
-            when "N"
-                @y_position += 1
-            when "E"
-                @x_position += 1
-            when "S"
-                @y_position -= 1
-            when "W"
-                @x_position -= 1
-            end
+        if plateau.can_go_here(@coordinates.new_step(@orientation.orientation.x_increment, @orientation.orientation.y_increment))
+            @coordinates = @coordinates.new_step(@orientation.orientation.x_increment, @orientation.orientation.y_increment)
         end
     end
 end
