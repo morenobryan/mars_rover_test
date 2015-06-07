@@ -6,13 +6,13 @@ class Plateau
 
     def self.can_walk(rover)
         case rover.orientation
-        when 0
+        when "N"
             rover.y_position == @y_size ? (return false) : (return true)
-        when 90
+        when "E"
             rover.x_position == @x_size ? (return false) : (return true)
-        when 180
+        when "S"
             rover.y_position == 0 ? (return false) : (return true)
-        when 270
+        when "W"
             rover.x_position == 0 ? (return false) : (return true)
         end
     end

@@ -6,67 +6,58 @@ class Rover
     def initialize(x_position, y_position, orientation)
         @x_position = x_position
         @y_position = y_position
-        @orientation = convert_orientation(orientation)
+        @orientation = orientation
     end
 
     def walk(instruction)
-        if instruction == "L" or instruction == "R"
-            rotate(instruction)
-            #print "#{x_position} #{y_position} #{orientation}"
-            #puts
-        elsif instruction == "M"
+        case instruction
+        when "L"
+            rotate_left
+        when "R"
+            rotate_right
+        when "M"
             go_forward
-            #print "#{x_position} #{y_position} #{orientation}"
-            #puts
         end
     end
 
-    def rotate(direction)
-        case direction
-        when "L"
-            if @orientation == 0
-                @orientation = 270
-            else
-                @orientation -= 90
-            end
-        when "R"
-            if @orientation == 270
-                @orientation = 0
-            else
-                @orientation += 90
-            end
-        else
-            throw("Nil")
+    def rotate_left
+        case @orientation
+        when "N"
+            @orientation = "W"
+        when "W"
+            @orientation = "S"
+        when "S"
+            @orientation = "E"
+        when "E"
+            @orientation = "N"
+        end
+    end
+
+    def rotate_right
+        case @orientation
+        when "N"
+            @orientation = "E"
+        when "E"
+            @orientation = "S"
+        when "S"
+            @orientation = "W"
+        when "W"
+            @orientation = "N"
         end
     end
 
     def go_forward
         if Plateau::can_walk(self)
             case @orientation
-            when 0
+            when "N"
                 @y_position += 1
-            when 90
+            when "E"
                 @x_position += 1
-            when 180
+            when "S"
                 @y_position -= 1
-            when 270
+            when "W"
                 @x_position -= 1
             end
-        end
-    end
-
-    def convert_orientation(orientation)
-        case orientation
-        when "N"
-            @orientation = 0
-        when "E"
-            @orientation = 90
-        when "S"
-            @orientation = 180
-        when "W"
-            @orientation = 270
-        else
-            throw("Nil")
         end
     end
 end
