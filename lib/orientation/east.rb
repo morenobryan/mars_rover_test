@@ -8,14 +8,14 @@ class East < Orientation
     end
 
     def left
-        return North.new
+        North.new
     end
 
     def right
-        return South.new
+        South.new
     end
 
     def to_s
-        return "E"
+        "E"
     end
 end

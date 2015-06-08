@@ -11,6 +11,6 @@ class Coordinates
     # The parameters are the increments (or decrements) on each coordinate
     # the method gets the current coordinates and adds the step size
     def new_step(step_x, step_y)
-        return Coordinates.new(@x_coordinate + step_x, @y_coordinate + step_y)
+        Coordinates.new(@x_coordinate + step_x, @y_coordinate + step_y)
     end
 end

@@ -8,9 +8,9 @@ class Plateau
 
     def can_go_here(coordinates)
         if coordinates.x_coordinate <= @x_size and coordinates.y_coordinate <= @y_size
-            return true
+            true
         else
-            return false
+            false
         end
     end
 end
