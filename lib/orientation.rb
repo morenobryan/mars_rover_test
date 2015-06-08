@@ -1,3 +1,4 @@
+# Class that defines the generic orientation of the rover
 class Orientation
     attr_accessor :orientation
 
